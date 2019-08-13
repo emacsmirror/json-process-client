@@ -1,0 +1,57 @@
+* json-process-client
+
+  #+BEGIN_HTML
+      <p>
+        <a href="https://gitlab.petton.fr/nico/json-process-client/commits/master">
+          <img alt="pipeline status" src="https://gitlab.petton.fr/nico/json-process-client/badges/master/pipeline.svg" />
+        </a>
+      </p>
+  #+END_HTML
+
+** Summary
+
+The package json-process-client is an Emacs library to facilitate
+communicating with servers that read and write JSON. The library is
+responsible for starting the server and connecting with TCP. It is
+also responsible for converting to and from JSON.
+
+The library was written by [[https://nicolas.petton.fr/][Nicolas Petton]] in the context of [[https://melpa.org/#/indium][Indium]] and
+later generalized by [[https://github.com/DamienCassou/][Damien Cassou]] who needed something similar to
+integrate [[https://gitlab.petton.fr/basecampel][basecamp within Emacs]].
+
+** Installation
+
+Get json-process-client from [[https://melpa.org/#/json-process-client][melpa]] or [[https://stable.melpa.org/#/json-process-client][melpa stable]]. You can also clone
+the git repository.
+
+** Usage
+
+There are two entry points to the API: ~json-process-client-start~ and
+~json-process-client-start-with-id~. They both launch an executable
+passed as parameter wait for it to be ready, and connect to it using
+TCP. They both return an "application" that must be passed as
+parameter to all other functions of the API.
+
+Because everything is asynchronous, the server can send responses in a
+different order than the messages the client sent. The server can also
+send messages which are not responses to a former message. There must
+be a way to map responses to the initial message when there was
+one. The two functions ~json-process-client-start~ and
+~json-process-client-start-with-id~ differs in the way they map
+responses to their corresponding message. The later function is the
+simplest but requires that the server reads ids from the messages and
+writes the ids back in its responses. The former function let the API
+user implement the mapping.
+
+There are three other public methods in the API:
+
+- ~json-process-client-stop~ terminates the TCP connection and the
+  server.
+- ~json-process-client-process-live-p~ returns non-nil if the server
+  is still listening.
+- ~json-process-client-send~ sends a message to the server and
+  executes a given callback upon reception.
+
+** License
+
+See [[file:COPYING][COPYING]]. Copyright (c) 2019 Nicolas Petton and Damien Cassou.
