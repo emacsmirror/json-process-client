@@ -1,0 +1,3 @@
+makel.mk
+*.elc
+*-autoloads.el
