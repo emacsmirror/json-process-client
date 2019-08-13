@@ -187,7 +187,7 @@ If DEBUG is non-nil, send all messages to a debug buffer. If
 DEBUG is a string, use this as the name for the debug buffer.
 
 ARGS are passed to EXECUTABLE."
-  (let* ((executable (executable-find executable))
+  (let* ((executable-path (executable-find executable))
          (debug-buffer (when debug
                          (get-buffer-create
                           (if (stringp debug)
@@ -195,7 +195,7 @@ ARGS are passed to EXECUTABLE."
                             (format "*json-process-client-%s*" name)))))
          (application (json-process-client--application-create
                        :name name
-                       :executable executable
+                       :executable executable-path
                        :port port
                        :args args
                        :tcp-started-callback tcp-started-callback
@@ -204,8 +204,8 @@ ARGS are passed to EXECUTABLE."
                        :delete-callback delete-callback
                        :started-regexp started-regexp
                        :debug-buffer debug-buffer)))
-    (unless executable
-      (user-error "Cannot find executable `%s'" executable))
+    (unless executable-path
+      (user-error "Cannot find executable \"%s\"" executable))
 
     (when (bufferp debug-buffer)
       (with-current-buffer debug-buffer
