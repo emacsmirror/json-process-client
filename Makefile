@@ -1,10 +1,10 @@
-ELPA_DEPENDENCIES=package-lint
+ELPA_DEPENDENCIES=package-lint buttercup
 
 ELPA_ARCHIVES=melpa
 
-TEST_ERT_FILES=$(wildcard test/*.el)
+TEST_BUTTERCUP_OPTIONS=test/
 LINT_CHECKDOC_FILES=$(wildcard *.el) $(wildcard test/*.el)
-LINT_PACKAGE_LINT_FILES=$(wildcard *.el) $(wildcard test/*.el)
+LINT_PACKAGE_LINT_FILES=$(wildcard *.el)
 LINT_COMPILE_FILES=$(wildcard *.el) $(wildcard test/*.el)
 
 LINT_CHECKDOC_OPTIONS=--eval "(setq checkdoc-arguments-in-order-flag nil)"
@@ -17,7 +17,7 @@ makel.mk:
 		curl \
 		--fail --silent --show-error --insecure --location \
 		--retry 9 --retry-delay 9 \
-		-O https://gitlab.petton.fr/DamienCassou/makel/raw/v0.5.1/makel.mk; \
+		-O https://gitlab.petton.fr/DamienCassou/makel/raw/v0.5.2/makel.mk; \
 	fi
 
 # Include makel.mk if present
