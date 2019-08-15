@@ -5,7 +5,7 @@
 ;; Author: Nicolas Petton <nicolas@petton.fr>
 ;;         Damien Cassou <damien@cassou.me>,
 ;; Version: 0.1.0
-;; Package-Requires: ((emacs "25"))
+;; Package-Requires: ((emacs "25.1"))
 ;; Url: https://gitlab.petton.fr/nico/json-process-client
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -29,6 +29,7 @@
 ;;; Code:
 
 (require 'json)
+(require 'map)
 
 ;; Private variables
 
@@ -47,7 +48,8 @@
   (started-regexp nil :read-only t)
   (save-callback nil :read-only t)
   (exec-callback nil :read-only t)
-  (delete-callback nil :read-only t))
+  (delete-callback nil :read-only t)
+  (write-id nil :read-only nil))
 
 (defvar-local json-process-client--application nil
   "Buffer-local variable to store which application the buffer corresponds to.")
@@ -215,6 +217,44 @@ ARGS are passed to EXECUTABLE."
 
     application))
 
+(cl-defun json-process-client-start-with-id (&key name executable port started-regexp tcp-started-callback exec-callback debug args)
+  "Same as `json-process-client-start' but maps responses to callbacks using ids.
+
+The parameters NAME, EXECUTABLE, PORT, STARTED-REGEXP,
+TCP-STARTED-CALLBACK, EXEC-CALLBACK, DEBUG, and ARGS are the same
+as in `json-process-client-start'.
+
+This function is simpler to use than `json-process-client-start'
+because it doesn't require managing a response-to-callback
+mapping manually. Nevertheless, it can only be useful if the
+process pointed to by EXECUTABLE reads ids from the messages and
+writes them back in its responses. "
+  (let* ((callbacks (list))
+         (application
+          (json-process-client-start
+           :name name
+           :executable executable
+           :port port
+           :started-regexp started-regexp
+           :tcp-started-callback tcp-started-callback
+           :save-callback (lambda (callback message)
+                            (map-put callbacks (map-elt message 'id) callback))
+           :exec-callback (lambda (response)
+                            (funcall
+                             exec-callback
+                             response
+                             (map-elt callbacks (map-elt response 'id))))
+           :delete-callback (lambda (response)
+                              (map-delete callbacks (map-elt response 'id)))
+           :debug debug
+           :args args)))
+    (let ((id 0))
+      (setf (json-process-client--application-write-id application)
+            (lambda ()
+              (cl-incf id)
+              `(id . ,id))))
+    application))
+
 (defun json-process-client-stop (application)
   "Stop the process and connection for APPLICATION."
   (when (json-process-client-application-p application)
@@ -230,7 +270,10 @@ ARGS are passed to EXECUTABLE."
   "Send MESSAGE to APPLICATION.
 When CALLBACK is non-nil, evaluate it with the process response."
   (json-process-client--ensure-process application)
-  (let* ((json (json-encode message))
+  (let* ((message (if (json-process-client--application-write-id application)
+                      (cons (funcall (json-process-client--application-write-id application)) message)
+                    message))
+         (json (json-encode message))
          (debug-buffer (json-process-client--application-debug-buffer application)))
     (json-process-client--save-callback application callback message)
     (when (bufferp debug-buffer)
