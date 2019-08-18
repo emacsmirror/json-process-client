@@ -23,7 +23,7 @@
 
 ;;; Commentary:
 
-;; This library starts a process and communicate with it through JSON
+;; This library starts a process and communicates with it through JSON
 ;; over TCP.  The process must output one JSON message per line.
 
 ;;; Code:
@@ -76,7 +76,7 @@
                 (json-process-client--application-name application))))
 
 (defun json-process-client--start-server (application)
-  "Start a proccess for APPLICATION."
+  "Start a process for APPLICATION."
   (let* ((process (apply
                    #'start-process
                    (format "%s-process" (json-process-client--application-name application))
