@@ -2,6 +2,14 @@
 
   #+BEGIN_HTML
       <p>
+        <a href="https://stable.melpa.org/#/json-process-client">
+          <img alt="MELPA Stable" src="https://stable.melpa.org/packages/json-process-client-badge.svg"/>
+        </a>
+
+        <a href="https://melpa.org/#/json-process-client">
+          <img alt="MELPA" src="https://melpa.org/packages/json-process-client-badge.svg"/>
+        </a>
+
         <a href="https://gitlab.petton.fr/nico/json-process-client/commits/master">
           <img alt="pipeline status" src="https://gitlab.petton.fr/nico/json-process-client/badges/master/pipeline.svg" />
         </a>
