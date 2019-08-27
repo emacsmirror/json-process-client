@@ -110,14 +110,15 @@ The APPLICATION's callback is evaluated once the connection is established."
                       (format "%s-connection" application-name)
                       connection-buffer
                       "localhost"
-                      (json-process-client--application-port application))))
+                      (json-process-client--application-port application)))
+         (callback (json-process-client--application-tcp-started-callback application)))
     (setf (json-process-client--application-connection application) connection)
     (with-current-buffer connection-buffer
       (setq-local json-process-client--application application))
     (set-process-filter connection #'json-process-client--connection-filter)
     (set-process-coding-system connection 'utf-8)
     (set-process-query-on-exit-flag connection nil)
-    (funcall (json-process-client--application-tcp-started-callback application))))
+    (when callback (funcall callback))))
 
 (defun json-process-client--connection-filter (process output)
   "Filter function for handling the PROCESS OUTPUT."
