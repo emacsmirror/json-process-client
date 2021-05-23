@@ -1,0 +1,14 @@
+kind: pipeline
+name: default
+
+platform:
+  os: linux
+  arch: arm
+
+steps:
+- name: check
+  image: silex/emacs:27.2-dev
+  commands:
+  - emacs --version
+  - make ci-dependencies
+  - make check
