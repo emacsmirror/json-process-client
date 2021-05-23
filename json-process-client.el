@@ -30,6 +30,7 @@
 
 (require 'json)
 (require 'map)
+(require 'cl-lib)
 
 ;; Private variables
 
