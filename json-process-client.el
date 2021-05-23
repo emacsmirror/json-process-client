@@ -171,7 +171,7 @@ Messages end with a line feed."
 (cl-defun json-process-client-start (&key name executable port started-regexp tcp-started-callback save-callback exec-callback delete-callback debug args)
   "Start a process using EXECUTABLE.  Return an application object.
 
-NAME is a short string describing the application. It is used to
+NAME is a short string describing the application.  It is used to
 name processes and buffers.
 
 PORT is a number indicating which TCP port to connect to reach
@@ -186,7 +186,7 @@ SAVE-CALLBACK, EXEC-CALLBACK and DELETE-CALLBACK should be three
 functions used to associate callbacks to TCP messages and
 responses.
 
-If DEBUG is non-nil, send all messages to a debug buffer. If
+If DEBUG is non-nil, send all messages to a debug buffer.  If
 DEBUG is a string, use this as the name for the debug buffer.
 
 ARGS are passed to EXECUTABLE."
@@ -219,7 +219,7 @@ ARGS are passed to EXECUTABLE."
     application))
 
 (cl-defun json-process-client-start-with-id (&key name executable port started-regexp tcp-started-callback exec-callback debug args)
-  "Same as `json-process-client-start' but maps responses to callbacks using ids.
+  "Like `json-process-client-start' but maps responses to callbacks using ids.
 
 The parameters NAME, EXECUTABLE, PORT, STARTED-REGEXP,
 TCP-STARTED-CALLBACK, EXEC-CALLBACK, DEBUG, and ARGS are the same
@@ -227,9 +227,9 @@ as in `json-process-client-start'.
 
 This function is simpler to use than `json-process-client-start'
 because it doesn't require managing a response-to-callback
-mapping manually. Nevertheless, it can only be useful if the
+mapping manually.  Nevertheless, it can only be useful if the
 process pointed to by EXECUTABLE reads ids from the messages and
-writes them back in its responses. "
+writes them back in its responses."
   (let* ((callbacks (list))
          (application
           (json-process-client-start
