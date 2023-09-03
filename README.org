@@ -10,8 +10,8 @@
           <img alt="MELPA" src="https://melpa.org/packages/json-process-client-badge.svg"/>
         </a>
 
-        <a href="https://gitlab.petton.fr/nico/json-process-client/commits/master">
-          <img alt="pipeline status" src="https://gitlab.petton.fr/nico/json-process-client/badges/master/pipeline.svg" />
+        <a href="https://github.com/DamienCassou/json-process-client/actions/workflows/test.yml">
+          <img alt="pipeline status" src="https://github.com/DamienCassou/json-process-client/actions/workflows/test.yml/badge.svg" />
         </a>
       </p>
   #+END_HTML
@@ -25,7 +25,7 @@ also responsible for converting to and from JSON.
 
 The library was written by [[https://nicolas.petton.fr/][Nicolas Petton]] in the context of [[https://melpa.org/#/indium][Indium]] and
 later generalized by [[https://github.com/DamienCassou/][Damien Cassou]] who needed something similar to
-integrate [[https://gitlab.petton.fr/basecampel][basecamp within Emacs]].
+integrate [[https://github.com/DamienCassou/libbcel][basecamp within Emacs]].
 
 ** Installation
 
