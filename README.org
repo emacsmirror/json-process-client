@@ -62,4 +62,4 @@ There are three other public methods in the API:
 
 ** License
 
-See [[file:COPYING][COPYING]]. Copyright (c) 2019 Nicolas Petton and Damien Cassou.
+See [[file:COPYING][COPYING]]. Copyright (c) 2019-2023 Nicolas Petton and Damien Cassou.

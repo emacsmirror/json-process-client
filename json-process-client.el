@@ -1,6 +1,6 @@
 ;;; json-process-client.el --- Interact with a TCP process using JSON  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2019  Damien Cassou
+;; Copyright (C) 2019-2023  Damien Cassou
 
 ;; Author: Nicolas Petton <nicolas@petton.fr>
 ;;         Damien Cassou <damien@cassou.me>,
