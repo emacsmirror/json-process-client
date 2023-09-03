@@ -1,11 +1,11 @@
 ;;; json-process-client.el --- Interact with a TCP process using JSON  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2019  Damien Cassou
+;; Copyright (C) 2019-2023  Damien Cassou
 
 ;; Author: Nicolas Petton <nicolas@petton.fr>
 ;;         Damien Cassou <damien@cassou.me>,
 ;; Version: 1.0.0
-;; Package-Requires: ((emacs "25.1"))
+;; Package-Requires: ((emacs "27.1"))
 ;; Url: https://gitlab.petton.fr/nico/json-process-client
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -240,7 +240,7 @@ writes them back in its responses."
            :started-regexp started-regexp
            :tcp-started-callback tcp-started-callback
            :save-callback (lambda (callback message)
-                            (map-put callbacks (map-elt message 'id) callback))
+                            (map-put! callbacks (map-elt message 'id) callback))
            :exec-callback (lambda (response)
                             (funcall
                              exec-callback
