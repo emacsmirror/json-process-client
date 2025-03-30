@@ -6,7 +6,7 @@
 ;;         Damien Cassou <damien@cassou.me>,
 ;; Version: 1.0.0
 ;; Package-Requires: ((emacs "27.1"))
-;; Url: https://gitlab.petton.fr/nico/json-process-client
+;; URL: https://github.com/DamienCassou/json-process-client
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -56,7 +56,7 @@
   "Buffer-local variable to store which application the buffer corresponds to.")
 
 (defun json-process-client--save-callback (application callback message)
-  "Save CALLBACK so we can call it when a response for MESSAGE arrives from APPLICATION."
+  "Save CALLBACK so it is called when APPLICATION responds to MESSAGE."
   (funcall (json-process-client--application-save-callback application) callback message))
 
 (defun json-process-client--exec-callback (application response)
